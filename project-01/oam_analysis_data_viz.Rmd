@@ -1,0 +1,129 @@
+---
+title: "Data Visualization - Mini-Project 1"
+author: "Omar Abdallah Mateo `oabdallahmateo8279@floridapoly.edu`"
+output:
+  html_document:
+    df_print: paged
+---
+
+## Load Data
+
+```{r load-clean-data, warning=FALSE, message=FALSE}
+library(tidyverse)
+us_births <- read_csv("https://raw.githubusercontent.com/reisanar/datasets/master/us_births_00_14.csv", col_types = cols())
+
+```
+
+## Summary
+
+```{r plot-summary}
+library(dplyr)
+
+births_summary <- us_births %>%
+  group_by(year) %>%
+  summarize(total_births = sum(births))
+
+# View the summarized data
+print(births_summary)
+
+```
+
+## Visualizations
+
+```{r line chart}
+library(ggplot2)
+
+# Line chart
+ggplot(births_summary, aes(x = year, y = total_births)) +
+  geom_line(color = "steelblue") +
+  labs(x = "Year", y = "Total Births", title = "Births by Year - Line Chart")
+
+```
+
+```{r bar chart}
+library(ggplot2)
+library(scales)
+# Convert month to a factor with all levels
+us_births$month <- factor(us_births$month, levels = unique(us_births$month),
+                          labels = c("January", "February", "March", "April", "May", "June",
+                                     "July", "August", "September", "October", "November", "December"))
+
+# Calculate total births by month
+births_summary <- us_births %>%
+  group_by(month) %>%
+  summarize(total_births = sum(births))
+
+# Reorder the levels of the month factor based on total births in descending order
+births_summary <- births_summary[order(births_summary$total_births, decreasing = TRUE), ]
+us_births$month <- factor(us_births$month, levels = births_summary$month)
+
+# Bar chart of births by month
+ggplot(us_births, aes(x = month, y = births)) +
+  geom_col(fill = "steelblue") +
+  scale_y_continuous(labels = label_number(suffix = "")) +
+  labs(x = "Month", y = "Number of Births", title = "Births by Month") +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1))
+
+
+```
+
+```{r boxplot}
+library(ggplot2)
+
+# Convert month to a factor with all levels
+us_births$month <- factor(us_births$month, levels = unique(us_births$month),
+                          labels = c("January", "February", "March", "April", "May", "June",
+                                     "July", "August", "September", "October", "November", "December"))
+
+# Create a boxplot of births by month
+ggplot(us_births, aes(x = month, y = births)) +
+  geom_boxplot(fill = "steelblue") +
+  labs(x = "Month", y = "Number of Births", title = "Distribution of Births by Month") +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1))
+
+```
+
+```{r heatmap}
+library(reshape2)
+library(dplyr)
+
+# Convert month and day_of_week to factors with all levels
+us_births$month <- factor(us_births$month, levels = unique(us_births$month),
+                          labels = c("January", "February", "March", "April", "May", "June",
+                                     "July", "August", "September", "October", "November", "December"))
+us_births$day_of_week <- factor(us_births$day_of_week, levels = c("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"))
+
+# Summarize births by month and day_of_week
+births_summary <- us_births %>%
+  group_by(month, day_of_week) %>%
+  summarize(total_births = sum(births))
+
+# Reshape the data for creating the heatmap
+births_matrix <- dcast(births_summary, day_of_week ~ month, value.var = "total_births")
+
+# Create the heatmap
+ggplot(data = births_summary, aes(x = month, y = day_of_week, fill = total_births)) +
+  geom_tile() +
+  labs(x = "Month", y = "Day of the Week", title = "Number of Births by Month and Day of the Week") +
+  scale_fill_gradient(low = "lightblue", high = "darkblue") +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1),
+        legend.position = "right")
+
+
+```
+
+# Report
+
+## What were the original charts you planned to create for this assignment?
+
+These were the original charts; however, I was facing some issues with the bar chart with the labels, but it is good now.
+
+## What story could you tell with your plots?
+
+I found out that the highest peak of births was in 2007; however, after that, it decreased drastically. It will be interesting to compare this with the family's economy since I feel it might be related to the economic crisis of 2008.
+
+I also searched throw the months to find out what is the month with the highest number of births. I have always heard that October/November has the highest number of births because of St. Valentine's Day in February; after looking at the graph, I can confirm that this legend is false. The month in which most births occur is August.
+
+## How did you apply the principles of data visualization and design for this assignment?
+
+I tried to use the same color for each visualization to keep the same theme. And I used horizontal bar charts instead of vertical ones and organized them from bigger to smaller because it is way easier to read them.
