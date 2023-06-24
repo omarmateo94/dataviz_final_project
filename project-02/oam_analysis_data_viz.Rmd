@@ -1,0 +1,107 @@
+---
+title: "Data Visualization - Mini-Project 2"
+author: "Omar Abdallah Mateo `oabdallahmateo8279@floridapoly.edu`"
+output:
+  html_document:
+    df_print: paged
+---
+
+```{r}
+library(tidyverse)
+library(sf)
+
+# Save the current working directory
+current_dir <- getwd()
+
+# Navigate to the parent directory
+setwd("..")
+
+# Create the 'data' directory if it doesn't exist
+dir.create("data", showWarnings = FALSE)
+
+# Navigate to the 'data' directory
+setwd("data")
+
+download.file("https://raw.githubusercontent.com/reisanar/datasets/master/presidentialElections.csv", "presidentialElections.csv")
+
+
+# Read the extracted CSV file
+presidential_elections <- read_csv("presidentialElections.csv", col_types = cols())
+
+state_shapes <- read_sf("ne_110m_admin_1_states_provinces.shp")
+
+# Navigate back to the original directory
+setwd(current_dir)
+
+
+```
+
+```{r}
+presidential_elections
+```
+
+```{r}
+library(dplyr)   
+
+state_summary <- presidential_elections %>%
+  group_by(state) %>%
+  summarise(avg_dem_vote = mean(demVote))
+
+merged_map <- merge(state_shapes, state_summary, by.x = "name", by.y = "state", all.x = TRUE)
+
+
+
+```
+
+```{r}
+
+ggplot() +
+  geom_sf(data = merged_map, aes(fill = avg_dem_vote)) +
+  scale_fill_gradient(low = "white", high = "blue") +
+  labs(title = "Voters for Dem.",
+       fill = "Voters for Dem")
+```
+
+```{r}
+library(plotly)
+
+# Create the interactive scatter plot
+plot <- plot_ly(presidential_elections, x = ~year, y = ~demVote, color = ~state,
+                colors = c("red", "blue"), alpha = 0.7, 
+                type = "scatter", mode = "markers") %>%
+  layout(title = "Presidential Election Results",
+         xaxis = list(title = "Year"),
+         yaxis = list(title = "Democratic Vote Percentage"))
+
+# Save the interactive plot as an HTML file
+htmlwidgets::saveWidget(plot, "presidential_data_plot.html", selfcontained = TRUE)
+
+# Display the interactive plot
+plot
+
+```
+
+```{r}
+library(ggplot2)
+
+# Calculate the average Democratic vote percentage by year
+avg_dem_vote <- presidential_elections %>%
+  group_by(year) %>%
+  summarize(avg_dem_vote = mean(demVote))
+
+# Create a bar plot
+ggplot(avg_dem_vote, aes(x = year, y = avg_dem_vote)) +
+  geom_bar(stat = "identity", fill = "steelblue") +
+  labs(x = "Year", y = "Average Democratic Vote %", title = "Average Democratic Vote % by Year") +
+  theme_minimal()
+
+```
+
+What were the original charts you planned to create for this assignment? What steps were necessary for cleaning and preparing the data?
+
+I spent around two days trying to work with Lakes of Lakeland; however, when trying to plot the lakes, it will plot all the lakes, whether they were on the dataset or not, and without the outline of the Florida map. I wanted to make a map showing the different pH levels in each lake using different color ranges. Then I realized that I needed clarification about where the lake was located because, for example, there are multiple lakes with the same name, so I had to drop the project and do it with the states. But it would have been interesting to see which area of Florida has better quality water.
+
+What story could you tell with your plots? What difficulties did you encounter while creating the visualizations? What additional approaches can be used to explore the data you selected? The bar chart helps me to see that for more than two years, more than 40% of the voters go to Democrats. This is very interesting because the bar chart has a wavy trend. For this dataset, I got little difficulties as the one for Florida Lakes; it was easier.
+
+How did you apply the principles of data visualization and design for this assignment? I use different approaches, such as filtering data to tell a story and try to simplify it as much as possible. The map helps to understand what areas of the country vote Democrat. We can conclude that the West and Midwest have fewer voters for Democrats than the rest of the states.
+

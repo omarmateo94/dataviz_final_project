@@ -1,8 +1,8 @@
 # Data Visualization and Reproducible Research
 
-> Firstname Lastname. 
+> Omar Abdallah Mateo. 
 
-Learn more about me in my [GitHub profile page](https://github.com/reiminer). 
+Learn more about me in my [GitHub profile page](https://github.com/omarmateo94). 
 
 
 The following is a sample of products created during the _"Data Visualization and Reproducible Research"_ course.
@@ -10,7 +10,9 @@ The following is a sample of products created during the _"Data Visualization an
 
 ## Project 01
 
-In the `project_01/` folder you can find... _[add short description of your revised project here]_
+In the `project_01/` folder you can find Project 01. This project is to apply the concepts learned through the course. I decided to use the data set of U.S. births. After analyzing using different visualizations, I found out that the highest peak of births was in 2007; however, after that, it decreased drastically. It will be interesting to compare this with the family's economy since I feel it might be related to the economic crisis of 2008.
+
+I also searched throw the months to find out what is the month with the highest number of births. I have always heard that October/November has the highest number of births because of St. Valentine's Day in February; after looking at the graph, I can confirm that this legend is false.
 
 **Sample data visualization:** 
 
@@ -20,7 +22,9 @@ _[include your favorite visualization from this project here]_
 
 ## Project 02
 
-In this project, I explored ... _[short description of your revised project goes here]_ Find the code and report in the `project_02/` folder.
+This project explores different trends on democrat voters through the years.
+
+The project propose different graphs to visualize the data and get a better understanding of how the votes have been evolving though the years. Some of the visualizations, such as the map, can give a better understanding of what areas are tending to vote for democrats. Find the code and report in the `project_02/` folder.
 
 **Sample data visualization:** 
 
