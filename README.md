@@ -17,7 +17,7 @@ I also searched throw the months to find out what is the month with the highest 
 **Sample data visualization:** 
 
 _[include your favorite visualization from this project here]_
-<img src="https://github.com/reisanar/figs/raw/master/echarts.png" width="70%" height="70%">
+<img src="https://github.com/omarmateo94/dataviz_final_project/blob/main/figures/Proj1-Fig1.png?raw=true" width="70%" height="70%">
 
 
 ## Project 02
@@ -29,21 +29,22 @@ The project propose different graphs to visualize the data and get a better unde
 **Sample data visualization:** 
 
 _[include your favorite visualization from this project here]_
-<img src="https://raw.githubusercontent.com/reisanar/dataviz_final_project/main/figures/fl_higher_ed.png" width="80%" height="80%">
+<img src="https://github.com/omarmateo94/dataviz_final_project/blob/main/figures/Proj2-Fig1.png" width="80%" height="80%">
 
 (you can place your figures in the `figures/` folder and use the `![](path_to_picture)` option to add the pictures here)
 
 
 ## Project 03
 
-In this project, I explored ... _[short description of the data visualizations you for this part of the project produced goes here]_
+In this project, I explored methods to create different types of data visualizations using the dataset obtained from FSU’s Florida Climate Center, for a station at Tampa International Airport (TPA) for 2022.
 
 **Sample data visualization:** 
 
 _[include your favorite visualization from this project here]_
-<img src="https://github.com/reisanar/figs/raw/master/concrete_density.png" width="80%" height="80%">
+<img src="https://github.com/omarmateo94/dataviz_final_project/blob/main/figures/Proj3-Fig3.png" width="80%" height="80%">
 
 
 ### Moving Forward
 
-_Please add here a short reflection on what you learned and what you plan to continue exploring in terms of data visualization, data storytelling, reproducible research, and/or related topics._
+I would love to take this class during fall or spring. Due my work and classes, it is difficult to improve my projects since there is not really much time. I have laerned a lot and I want to practice outside of class in a more slower pace.
+
